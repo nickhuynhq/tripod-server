@@ -11,6 +11,22 @@ export const getPosts = async (req, res) => {
   }
 };
 
+export const getPostsBySearch = async (req, res) => {
+  const { searchQuery, tags } = req.query;
+
+  try {
+    // i will ignore, for example: "Test test TEST", will all be the same
+    const title = new RegExp(searchQuery, "i");
+    const posts = await PostMessage.find({
+      // Find either title or tags, in which the tags is the same as our tags
+      $or: [{ title }, { tags: { $in: tags.split(",") } }],
+    });
+    res.status(200).json(posts);
+  } catch (error) {
+    res.status(404).json({ message: error });
+  }
+};
+
 export const createPost = async (req, res) => {
   const post = req.body;
 
