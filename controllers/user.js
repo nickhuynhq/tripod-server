@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import decode from "jwt-decode";
 
 import User from "../models/user.js";
 
@@ -28,6 +29,25 @@ export const signin = async (req, res) => {
     );
 
     res.status(200).json({ result: existingUser, token });
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong." });
+  }
+};
+
+export const googleSignin = async (req, res) => {
+  try {
+    const id = req.body.sub;
+    const { email, name, picture } = req.body;
+    const existingUser = await User.findOne({ email });
+
+    const token = jwt.sign({ email: email, id: id }, "test", {
+      expiresIn: "1h",
+    });
+
+    res.status(200).json({
+      result: { _id: id, email: email, name: name, picture: picture },
+      token,
+    });
   } catch (error) {
     res.status(500).json({ message: "Something went wrong." });
   }
