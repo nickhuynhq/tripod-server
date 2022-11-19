@@ -11,9 +11,21 @@ export const getPosts = async (req, res) => {
       const total = await PostMessage.countDocuments({});
       const posts = await PostMessage.find().sort({ _id: -1 }).limit(LIMIT).skip(startIndex);
 
-      res.json({ data: posts, currentPage: Number(page), numberOfPages: Math.ceil(total / LIMIT)});
+      res.status(200).json({ data: posts, currentPage: Number(page), numberOfPages: Math.ceil(total / LIMIT)});
   } catch (error) {    
-      res.status(404).json({ message: error.message });
+      res.status(404).json({ message: error });
+  }
+}
+
+export const getPost = async (req, res) => {
+  const { id } = req.params;
+  
+  try {
+      const post = await PostMessage.findById(id);
+
+      res.status(200).json(post);
+  } catch (error) {    
+      res.status(404).json({ message: error });
   }
 }
 
@@ -63,7 +75,7 @@ export const updatePost = async (req, res) => {
     { new: true }
   );
 
-  res.json(updatedPost);
+  res.status(200).json(updatedPost);
 };
 
 export const deletePost = async (req, res) => {
@@ -74,7 +86,7 @@ export const deletePost = async (req, res) => {
 
   await PostMessage.findByIdAndDelete(id);
 
-  res.json({ message: "Post deleted successfully" });
+  res.status(204).json({ message: "Post deleted successfully" });
 };
 
 export const likePost = async (req, res) => {
@@ -98,5 +110,5 @@ export const likePost = async (req, res) => {
     new: true,
   });
 
-  res.json(updatedPost);
+  res.status(200).json(updatedPost);
 };
