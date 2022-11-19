@@ -24,7 +24,7 @@ export const signin = async (req, res) => {
 
     const token = jwt.sign(
       { email: existingUser.email, id: existingUser._id },
-      "test",
+      process.env.SECRET_KEY,
       { expiresIn: "1h" }
     );
 
@@ -39,7 +39,7 @@ export const googleSignin = async (req, res) => {
     const id = req.body.sub;
     const { email, name, picture } = req.body;
 
-    const token = jwt.sign({ email: email, id: id }, "test", {
+    const token = jwt.sign({ email: email, id: id }, process.env.SECRET_KEY, {
       expiresIn: "1h",
     });
 
@@ -72,7 +72,7 @@ export const signup = async (req, res) => {
       name: `${firstName} ${lastName}`,
     });
 
-    const token = jwt.sign({ email: result.email, id: result._id }, "test", {
+    const token = jwt.sign({ email: result.email, id: result._id }, process.env.SECRET_KEY, {
       expiresIn: "1h",
     });
 
