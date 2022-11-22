@@ -1,7 +1,7 @@
 # TriPod-SERVER
 
 This repo is for the back-end of the main project, which hosts all routes and data for the front-end to use.
-Feel free to checkout the main project here: https://github.com/nickhuynhq/memories-client
+Feel free to checkout the main project here: https://github.com/nickhuynhq/tripod-client
 
 Please use this link to demo the live site!
 https://tripod.nickhuynhq.com
