@@ -18,14 +18,14 @@ https://tripod.nickhuynhq.com
 ## Installation
 
 1. Clone this repository.
-```$ git clone https://git@github.com:nickhuynhq/memories-server.git```
+```$ git clone https://git@github.com:nickhuynhq/tripod-server.git```
 
 
 2. Run `npm install` from inside the client directory.
 
 
 ```bash
-$ cd memories-server
+$ cd tripod-server
 $ npm install
 ```
 
